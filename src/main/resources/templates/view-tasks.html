@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assigned Tasks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100   min-h-screen flex flex-col">
+
+<!-- Navbar -->
+<nav class="bg-blue-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <div>
+                <h1 class="text-white text-lg font-bold" > Assigned Tasks</h1>
+            </div>
+            <div>
+                <a th:switch="${#authentication != null ? #authentication.authorities : null}">
+                     <span th:case="'ROLE_EMPLOYEE'" th:href="@{/employee-dashboard}"
+                        class="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition duration-300">
+                                Back to Employee Dashboard
+                    </span>
+                    <span th:case="'ROLE_MANAGER'" th:href="@{/manager-dashboard}"
+                          class="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition duration-300">
+                            Back to Manager Dashboard
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="flex-grow">
+<div class="max-w-7xl mx-auto mt-6 sm:px-6 lg:px-8">
+
+    <!-- Task List -->
+    <div class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6"> Assigned Tasks</h2>
+
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Task Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assigned To</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                </tr>
+                </thead>
+                <tbody th:if="${tasks != null and not #lists.isEmpty(tasks)}">
+            <tr th:each="task : ${tasks}">
+                <td class="px-6 py-4 whitespace-nowrap" th:text="${task.taskName}">Task Name</td>
+                <td class="px-6 py-4 whitespace-nowrap" th:text="${task.taskAssignedTo}">Assigned To</td>
+                <td class="px-6 py-4 whitespace-nowrap" th:text="${task.taskDescription}">Description</td>
+                <td class="px-6 py-4 whitespace-nowrap">
+    <span th:if="${task.taskStatus != 'FINISHED'}">
+        <form th:action="@{'/tasks/mark-finished/' + ${task.id}}" method="post">
+            <button type="submit"
+                    class="bg-green-500 hover:bg-green-600 text-white text-sm px-3 py-1 rounded">
+                Mark as Finished
+            </button>
+        </form>
+    </span>
+                    <span th:if="${task.taskStatus == 'FINISHED'}" class="text-green-600 font-semibold">
+                        Finished
+                    </span>
+                </td>
+            </tr>
+
+                </tbody>
+                <tbody th:if="${tasks == null or #lists.isEmpty(tasks)}">
+                <tr>
+                    <td colspan="4" class="px-6 py-4 text-center text-gray-500">No tasks assigned to you yet.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</main>
+<!-- Sticky Footer -->
+<footer class="bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <p class="text-center text-gray-400">© 2025 All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>

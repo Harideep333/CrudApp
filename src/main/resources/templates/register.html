@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Registration</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+<!-- Navbar -->
+<nav class="bg-blue-600">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div>
+        <h1 class="text-white text-lg font-bold">User Sign Up</h1>
+      </div>
+      <div>
+        <a href="/login" class="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium">Home</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Registration Form -->
+<div class="max-w-xl mx-auto mt-10 bg-white shadow-md rounded-lg p-6">
+  <h2 class="text-2xl font-bold text-gray-800 mb-4">Register</h2>
+<!--  <form th:action="@{/register/save}" th:object="${user}" method="POST">-->
+    <form th:action="@{${actionUrl}}" th:object="${user}" method="POST">
+    <!-- First Name Field -->
+    <div class="mb-4">
+      <label for="firstName" class="block font-medium text-gray-600">First Name:</label>
+      <input type="text" id="firstName" th:field="*{firstName}" required
+             placeholder="Enter your first name"
+             class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500"/>
+    </div>
+
+    <!-- Last Name Field -->
+    <div class="mb-4">
+      <label for="lastName" class="block font-medium text-gray-600">Last Name:</label>
+      <input type="text" id="lastName" th:field="*{lastName}" required
+             placeholder="Enter your last name"
+             class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500"/>
+    </div>
+
+    <!-- Email Field -->
+    <div class="mb-4">
+      <label for="email" class="block font-medium text-gray-600">Email Address:</label>
+      <input type="email" id="email" th:field="*{email}" required
+             placeholder="Enter your email address"
+             class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500"/>
+    </div>
+
+    <!-- Phone Field -->
+    <div class="mb-4">
+      <label for="phone" class="block font-medium text-gray-600">Phone Number:</label>
+      <input type="text" id="phone" th:field="*{phone}"
+             placeholder="Enter your phone number (optional)"
+             class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500"/>
+    </div>
+
+    <!-- Username Field -->
+    <div class="mb-4">
+      <label for="username" class="block font-medium text-gray-600">Username:</label>
+      <input type="text" id="username" th:field="*{username}" required
+             placeholder="Choose a username"
+             class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500"/>
+    </div>
+
+    <!-- Password Field -->
+    <div class="mb-4">
+      <label for="password" class="block font-medium text-gray-600">Password:</label>
+      <input type="password" id="password" th:field="*{password}" required
+             placeholder="Enter a secure password"
+             class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500"/>
+    </div>
+
+    <!-- Roles Field -->
+    <div class="mb-4">
+      <label for="roles" class="block font-medium text-gray-600">Roles:</label>
+      <select id="roles" th:field="*{roles}" multiple required
+              class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
+        <option value="EMPLOYEE">Employee</option>
+        <option value="ADMIN">Admin</option>
+        <option value="MANAGER">Manager</option>
+      </select>
+      <small class="text-gray-500">Hold CTRL (CMD on Mac) to select multiple roles.</small>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Submit Button -->
+    <div>
+      <button type="submit"
+              class="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">
+        Sign Up
+      </button>
+    </div>
+  </form>
+</div>
+
+
+
+
+
+
+<!-- Footer -->
+<footer class="bg-gray-800 mt-10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <p class="text-center text-gray-400">© 2025 All rights reserved.</p>
+  </div>
+</footer>
+</body>
+</html>

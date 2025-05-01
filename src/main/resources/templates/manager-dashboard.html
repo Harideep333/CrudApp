@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+<!-- Navbar -->
+<nav class="bg-blue-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <h1 class="text-white text-xl font-bold">
+                <span>
+                    <span th:text="${firstName}">User</span>'s
+                </span> Dashboard</h1>
+            <a href="/logout"
+               class="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition duration-300">
+                Logout
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content Wrapper -->
+<div class="flex-grow">
+    <div class="max-w-7xl mx-auto mt-6 sm:px-6 lg:px-8">
+
+
+        <!-- Manager Actions Grid -->
+        <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Task Creation Link -->
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Create Task</h2>
+                <p class="text-gray-600 mb-4">Manage and create tasks for your team.</p>
+                <a href="/tasks/create" class="block text-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">
+                    Create Task
+                </a>
+            </div>
+
+            <!-- Assigned Tasks Link -->
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">View Assigned Tasks</h2>
+                <p class="text-gray-600 mb-4">View tasks assigned to your employees.</p>
+                <a href="/tasks/assigned" class="block text-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">
+                    View  Tasks
+                </a>
+            </div>
+
+            <!-- Employee Directory Link -->
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Employee Directory</h2>
+                <p class="text-gray-600 mb-4">Manage and view details of all employees.</p>
+                <a href="/employee/directory" class="block text-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">
+                    View Employees
+                </a>
+            </div>
+
+            <div class = "bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">View Employee Attendance</h2>
+                <p class="text-gray-600 mb-4">View attendance of all employees.</p>
+                <a href="/manager/attendance" class="block text-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">
+                    View Attendance
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sticky Footer -->
+<footer class="bg-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <p class="text-center text-gray-400">© 2025 All rights reserved.</p>
+    </div>
+</footer>
+</body>
+</html>

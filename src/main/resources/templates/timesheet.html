@@ -1,0 +1,35 @@
+<!-- templates/timesheet.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Timesheet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+<div class="max-w-5xl mx-auto mt-10 bg-white p-6 shadow-md rounded">
+    <h1 class="text-2xl font-bold mb-6">Employee Timesheet</h1>
+
+    <table class="min-w-full divide-y divide-gray-300">
+        <thead class="bg-gray-200">
+        <tr>
+            <th class="py-2 px-4 text-left">Date</th>
+            <th class="py-2 px-4 text-left">Clock In</th>
+            <th class="py-2 px-4 text-left">Clock Out</th>
+            <th class="py-2 px-4 text-left">Total Time Worked</th>
+        </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200" th:each="entry : ${attendanceList}">
+        <tr>
+            <td class="py-2 px-4" th:text="${#temporals.format(entry.clockInTime, 'yyyy-MM-dd')}"></td>
+            <td class="py-2 px-4" th:text="${#temporals.format(entry.clockInTime, 'HH:mm:ss')}"></td>
+            <td class="py-2 px-4" th:text="${entry.clockOutTime != null ? #temporals.format(entry.clockOutTime, 'HH:mm:ss') : '---'}"></td>
+            <td class="py-2 px-4"
+                th:text="${entry.workDuration != null ? entry.workDuration.toHours() + 'h ' + entry.workDuration.toMinutesPart() + 'm' : '---'}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

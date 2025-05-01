@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Attendance</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+<!-- Navbar -->
+<nav class="bg-blue-600">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-end h-16">
+      <!-- Manager Dashboard Link -->
+      <a href="/manager-dashboard"
+         class="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition duration-300">
+        Back to Dashboard
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Attendance Table -->
+<main class="py-8">
+  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">Employee Attendance</h1>
+    <div class="bg-white shadow-lg rounded-lg p-6">
+      <table class="min-w-full table-auto">
+        <thead>
+        <tr>
+          <th class="px-4 py-2 text-left">Employee Name</th>
+          <th class="px-4 py-2 text-left">Clock-In Time</th>
+          <th class="px-4 py-2 text-left">Clock-Out Time</th>
+          <th class="px-4 py-2 text-left">Work Duration</th>
+          <th class="px-4 py-2 text-left">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="attendance : ${attendanceList}">
+          <td class="px-4 py-2" th:text="${attendance.user.firstName + ' ' + attendance.user.lastName}"></td>
+          <td class="px-4 py-2" th:text="${attendance.clockInTime}"></td>
+          <td class="px-4 py-2" th:text="${attendance.clockOutTime}"></td>
+          <td class="px-4 py-2" th:text="${attendance.workDuration}"></td>
+          <td class="px-4 py-2" th:text="${attendance.isClockedIn ? 'Clocked In' : 'Clocked Out'}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>

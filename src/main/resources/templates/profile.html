@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+<!-- Navbar -->
+<nav class="bg-blue-600 shadow">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex justify-between items-center h-16">
+      <h1 class="text-white text-lg font-semibold"
+          th:text="${user.firstName} + ' ' + ${user.lastName} + '\'s Profile'">User's Profile</h1>
+      <a th:href="@{${dashboardUrl}}"
+         class="text-white bg-blue-500 hover:bg-blue-700 px-4 py-1 rounded text-sm font-medium transition duration-200">
+        Dashboard
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Profile Card -->
+<main class="flex-grow flex justify-center items-start py-10">
+  <div class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-xl">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-800">Profile Details</h2>
+      <a th:href="@{/profile/edit}"
+         class="text-blue-600 hover:underline text-sm font-medium">Edit</a>
+    </div>
+    <div class="space-y-4 text-sm text-gray-700">
+      <p><span class="font-semibold">Full Name:</span> <span th:text="${user.firstName + ' ' + user.lastName}"></span></p>
+      <p><span class="font-semibold">Phone:</span> <span th:text="${user.phone}"></span></p>
+      <p><span class="font-semibold">Email:</span> <span th:text="${user.email}"></span></p>
+      <p><span class="font-semibold">Role:</span> <span th:text="${#strings.listJoin(user.roles, ', ')}">EMPLOYEE</span></p>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-800 mt-10">
+  <div class="max-w-6xl mx-auto text-center text-gray-400 text-sm py-4">
+    © 2025 Employee Management System. All rights reserved.
+  </div>
+</footer>
+
+</body>
+</html>

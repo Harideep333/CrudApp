@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+<!-- Navbar -->
+<nav class="bg-blue-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-end h-16">
+            <!-- Left Side: Logout Button -->
+            <div>
+                <a href="/logout"
+                   class="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-md text-sm font-medium transition duration-300">
+                    Logout
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div class="flex-grow">
+
+    <!-- Success Message (for Clock-In & Clock-Out) -->
+    <div id="messageBox" th:if="${message}"
+         class="fixed top-5 right-5 bg-green-100 text-green-800 p-4 rounded shadow transition-opacity duration-500">
+        <span th:text="${message}"></span>
+    </div>
+
+    <!-- Error Message (for Clock-In/Clock-Out) -->
+    <div id="errorBox" th:if="${error}"
+         class="fixed top-5 right-5 bg-red-100 text-red-800 p-4 rounded shadow transition-opacity duration-500">
+        <span th:text="${error}"></span>
+    </div>
+
+
+    <header class="bg-white shadow">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold text-gray-900">
+                Welcome, <span th:text="${firstName}">User</span>
+            </h1>
+            <p class="text-gray-600 mt-2">Manage your tasks and important information below.</p>
+        <!-- Clock In / Clock Out Section -->
+            <div class="flex gap-4 mt-6">
+                <form th:action="@{/clockin}" method="post">
+                    <button id="clockInBtn" type="submit"
+                            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                       Clock In
+                    </button>
+                    <div th:if="${clockedInError}" class="alert alert-warning">
+                        <p th:text="${clockedInError}"></p>
+                    </div>
+                </form>
+
+                <form th:action="@{/clockout}" method="post">
+                    <button id="clockOutBtn" type="submit" th:disabled="${!isClockedIn}"
+                            class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                        Clock Out
+                    </button>
+                </form>
+            </div>
+
+            <script>
+                setTimeout(() => {
+                    const msg = document.getElementById("messageBox");
+                    const err = document.getElementById("errorBox");
+                    if (msg) msg.style.opacity = '0';
+                    if (err) err.style.opacity = '0';
+                    setTimeout(() => {
+                        if (msg) msg.remove();
+                        if (err) err.remove();
+                    }, 500); // Allow time for fade-out
+                }, 3000);
+            </script>
+
+</div>
+    </header>
+
+    <main class="py-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- My Profile -->
+                <div class="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition duration-300">
+                    <a href="/profile">
+                        <h2 class="text-xl font-bold text-gray-800">My Profile</h2>
+                        <p class="text-gray-600 mt-2">View and edit your profile information.</p>
+                    </a>
+                </div>
+
+                <!-- My Tasks -->
+                <div class="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition duration-300">
+                    <a href="/tasks">
+                        <h2 class="text-xl font-bold text-gray-800">My Tasks</h2>
+                        <p class="text-gray-600 mt-2">Track and monitor your daily tasks.</p>
+                    </a>
+                </div>
+
+
+                <!-- Apply for Leave -->
+                <div class="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition duration-300">
+                    <a th:href="@{/timesheet}">
+                        <h2 class="text-xl font-bold text-gray-800">View Timesheet</h2>
+                    <p class="text-gray-600 mt-2">View Time Sheet History. </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+<!-- Footer -->
+<footer class="bg-gray-800 mt-10">
+    <div class="max-w-6xl mx-auto text-center text-gray-400 text-sm py-4">
+        © 2025 Employee Management System. All rights reserved.
+    </div>
+</footer>
+
+</body>
+</html>
